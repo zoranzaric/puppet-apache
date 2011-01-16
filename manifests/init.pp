@@ -15,11 +15,16 @@
 #
 # Sample Usage:
 #
+#   include "apache"
+#
+#   apache::vhost { "foo.bar.com":
+#       vhost => "foo",
+#       domain => "bar.com"
+#       packages => ["libapache2-mod-php5", "php5-mysql"]
+#   }
 
 class apache {
-	$packages = [ "libapache2-mod-php5", "libapache2-mod-wsgi", "php5-gd", "php5-mysql", "php5-ldap", "python-ldap", "python-mysqldb","libnet-ldap-perl"]
-
-	package{ apache2: ensure => installed }
+	package{ "apache2": ensure => installed }
 
 	if $apache2_port {
 		$port = $apache2_port
@@ -30,11 +35,6 @@ class apache {
 	service { apache2:
 		ensure => running,
 		enable => true,
-	}
-
-	package{$packages:
-		ensure => installed,
-		notify => Service["apache2"],
 	}
 
 	file{"/etc/apache2/ports.conf":
@@ -59,7 +59,7 @@ class apache {
 		}
 	}
 
-	define vhost($vhost, $domain){
+	define vhost($vhost, $domain, $packages){
 		$linkname = "${name}.conf"
 
 		file{"/var/www/${domain}/":
@@ -91,6 +91,12 @@ class apache {
 			ensure => "/etc/apache2/sites-available/${name}.conf",
 			notify => Service["apache2"]
 		}
+
+		package{$packages:
+			ensure => latest,
+			notify => Service["apache2"],
+		}
+
 	}
 
 }
