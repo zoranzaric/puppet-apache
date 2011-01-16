@@ -1,4 +1,4 @@
-<VirtualHost *:80>
+<VirtualHost *:<%= port %>>
   ServerAdmin webmaster@tunnelblick-design.de
   DocumentRoot /var/www/<%= domain %>/<%= vhost %>/htdocs/
   ServerName <%= vhost %>.<%= domain %>
