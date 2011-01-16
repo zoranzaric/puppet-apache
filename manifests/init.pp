@@ -59,7 +59,7 @@ class apache {
 		}
 	}
 
-	define vhost($vhost, $domain, $packages){
+	define vhost($vhost, $domain, $packages, $port=$port){
 		$linkname = "${name}.conf"
 
 		file{"/etc/apache2/sites-available/${name}.conf":
