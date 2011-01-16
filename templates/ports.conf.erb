@@ -1,0 +1,8 @@
+NameVirtualHost *:<%= port %>
+Listen <%= port %>
+
+<IfModule mod_ssl.c>
+    # SSL name based virtual hosts are not yet supported, therefore no
+    # NameVirtualHost statement here
+    Listen 443
+</IfModule>

@@ -1,0 +1,27 @@
+<VirtualHost *:80>
+  ServerAdmin webmaster@tunnelblick-design.de
+  DocumentRoot /var/www/<%= domain %>/<%= vhost %>/htdocs/
+  ServerName <%= vhost %>.<%= domain %>
+  CustomLog /var/www/<%= domain %>/<%= vhost %>/logs/access_log combined
+  ErrorLog /var/www/<%= domain %>/<%= vhost %>/logs/error_log
+
+  <Directory "/var/www/<%= domain %>/<%= vhost %>/htdocs/">
+    Options FollowSymLinks
+    AllowOverride All
+    Order allow,deny
+    Allow from all
+  </Directory>
+
+  Alias /logs /var/www/<%= domain %>/<%= vhost %>/logs/htdocs
+  <Directory "/var/www/<%= domain %>/<%= vhost %>/logs/htdocs/">
+    Options FollowSymLinks
+    AllowOverride None
+    Order allow,deny
+    Allow from all
+
+    AuthName "Logs Access"
+    AuthType Basic
+    AuthUserFile /var/www/<%= domain %>/<%= vhost %>/logs/htpasswd
+    Require valid-user
+  </Directory>
+</VirtualHost>
