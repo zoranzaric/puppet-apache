@@ -62,19 +62,6 @@ class apache {
 	define vhost($vhost, $domain, $packages){
 		$linkname = "${name}.conf"
 
-		file{"/var/www/${domain}/":
-			ensure => directory
-		}
-		file{"/var/www/${domain}/${vhost}/":
-			ensure => directory
-		}
-		file{"/var/www/${domain}/${vhost}/htdocs/":
-			ensure => directory
-		}
-		file{"/var/www/${domain}/${vhost}/logs/":
-			ensure => directory
-		}
-
 		file{"/etc/apache2/sites-available/${name}.conf":
 			owner => root,
 			group => root,
