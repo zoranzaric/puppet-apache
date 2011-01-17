@@ -47,21 +47,12 @@ class apache {
 		ensure => absent
 	}
 
-	dir{$vhosts:
-		dir => "/var/log/apache2",
-	}
-
-	define dir($dir){
-		file{"$dir/$name":
-			ensure => directory,
-			owner => root,
-			group => root,
-			before => Service["apache2"],
+	define vhost($vhost, $domain, $aliases=[], $catchall=false, $packages=[], $port=$port){
+		if $catchall {
+			$linkname = "000-${name}.conf"
+		} else {
+			$linkname = "${name}.conf"
 		}
-	}
-
-	define vhost($vhost, $domain, $aliases=[], $packages=[], $port=$port){
-		$linkname = "${name}.conf"
 
 		file{"/etc/apache2/sites-available/${name}.conf":
 			owner => root,
