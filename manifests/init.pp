@@ -19,7 +19,8 @@
 #
 #   apache::vhost { "foo.bar.com":
 #       vhost => "foo",
-#       domain => "bar.com"
+#       domain => "bar.com",
+#       aliases => ["*.bar.com", "bar.com"],
 #       packages => ["libapache2-mod-php5", "php5-mysql"]
 #   }
 
@@ -59,7 +60,7 @@ class apache {
 		}
 	}
 
-	define vhost($vhost, $domain, $packages, $port=$port){
+	define vhost($vhost, $domain, $aliases=[], $packages=[], $port=$port){
 		$linkname = "${name}.conf"
 
 		file{"/etc/apache2/sites-available/${name}.conf":
