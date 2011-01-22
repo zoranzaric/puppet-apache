@@ -15,8 +15,6 @@
 #
 # Sample Usage:
 #
-#   include "apache"
-#
 #   apache::vhost { "foo.bar.com":
 #       vhost => "foo",
 #       domain => "bar.com",
@@ -47,7 +45,11 @@ class apache {
 		ensure => absent
 	}
 
-	define vhost($vhost, $domain, $aliases=[], $catchall=false, $packages=[], $port=$port){
+	define vhost($vhost, $domain, $aliases=[], $catchall=false, $packages=[], $port=undef){
+		include apache
+
+		$port = $apache::port
+
 		if $catchall {
 			$linkname = "000-${name}.conf"
 		} else {
