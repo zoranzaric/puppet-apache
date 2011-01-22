@@ -45,7 +45,7 @@ class apache {
 		ensure => absent
 	}
 
-	define vhost($vhost, $domain, $aliases=[], $catchall=false, $packages=[], $port=undef){
+	define vhost($vhost, $domain, $aliases=[], $catchall=false, $packages=[]){
 		include apache
 
 		$port = $apache::port
