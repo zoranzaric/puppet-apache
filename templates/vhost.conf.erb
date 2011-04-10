@@ -5,8 +5,8 @@
   <% aliases.each do |serveralias| -%>
   ServerAlias <%= serveralias %>
   <% end -%>
-  CustomLog /var/www/<%= domain %>/<%= vhost %>/logs/access_log combined
-  ErrorLog /var/www/<%= domain %>/<%= vhost %>/logs/error_log
+  CustomLog /var/www/<%= domain %>/<%= vhost %>/logs/access-apache.log combined
+  ErrorLog /var/www/<%= domain %>/<%= vhost %>/logs/error-apache.log
 
   <Directory "/var/www/<%= domain %>/<%= vhost %>/htdocs/">
     Options FollowSymLinks
