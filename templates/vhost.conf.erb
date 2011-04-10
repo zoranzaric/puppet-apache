@@ -27,4 +27,6 @@
     AuthUserFile /var/www/<%= domain %>/<%= vhost %>/logs/htpasswd
     Require valid-user
   </Directory>
+
+  Include /var/www/<%= domain %>/<%= vhost %>/configs/apache.conf
 </VirtualHost>

@@ -73,6 +73,14 @@ class apache {
 			notify => Service["apache2"]
 		}
 
+		file{"/var/www/${domain}/${vhost}/configs/apache.conf":
+			owner => root,
+			group => root,
+			mode => 0644,
+			ensure => 'present',
+			notify => Service["apache2"]
+		}
+
 		package{$packages:
 			ensure => latest,
 			notify => Service["apache2"],
